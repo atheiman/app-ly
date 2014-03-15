@@ -19,7 +19,7 @@ values
 ( 'sandy@dome.org' , 'Sandy' , 'Cheeks' , 'Houston' , 'United States' , '452-547-9703' )
 ;
 
-insert into work_history ( email , title , employer , start_date , end_date , reason_for_leaving )
+insert into work_history ( applicant_email , title , employer , start_date , end_date , reason_for_leaving )
 values
 ( 'spongebob@pineapple.com' , 'Frycook' , 'Weenie Hut General' , '2001-07-15' , '2004-01-01' , 'Embarassed of my job' ) ,
 ( 'spongebob@pineapple.com' , 'Frycook' , 'Krusty Krab' , '1999-05-01' , null , null ) ,
@@ -28,7 +28,7 @@ values
 ( 'sandy@dome.org' , 'Rancher' , 'Self-employed' , '1990-03-01' , '1999-04-15' , 'Moved to Bikini Bottom' )
 ;
 
-insert into applied ( email , job_id )
+insert into applied ( applicant_email , job_id )
 values
 ( 'spongebob@pineapple.com' , 1 ) ,
 ( 'spongebob@pineapple.com' , 2 ) ,
@@ -46,4 +46,5 @@ insert into comments ( user_email , applicant_email , comment )
 values
 ( 'sheldon@chumbucket.com' , 'spongebob@pineapple.com' , 'Spongebob is a bit too loud for me, always singing about FUN' ) ,
 ( 'eugene@krustykrab.com' , 'squidward@easterisland.net' , 'Squidward is a decent employee. Spends a bit too much time talking about the clarinet when he should be saving me money' ) ,
-
+( 'eugene@krustykrab.com' , 'spongebob@pineapple.com' , 'Spongebob seems very content working here for free.' )
+;
