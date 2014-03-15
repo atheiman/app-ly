@@ -14,7 +14,7 @@ order by a.lastname
 ;
 
 -- show all comments for a given applicant
-select a.firstname , a.lastname , c.comment , u.firstname , u.lastname
+select a.firstname , a.lastname , c.comment , u.firstname , u.lastname , u.title
 from applicants as a , comments as c , users as u
 where a.applicant_email = c.applicant_email
 and u.user_email = c.user_email
