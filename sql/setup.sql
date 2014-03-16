@@ -24,6 +24,7 @@ primary key (job_id)
 create table applicants
 (
 applicant_email varchar(255) not null,
+password varchar(255) not null,
 firstname varchar(255) not null,
 lastname varchar(255) not null,
 city varchar(255) not null,
@@ -53,6 +54,7 @@ foreign key (applicant_email) references applicants(applicant_email)
 create table users
 (
 user_email varchar(255) not null,
+password varchar(255) not null,
 firstname varchar(255) not null,
 lastname varchar(255) not null,
 title varchar(255) not null,
