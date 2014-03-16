@@ -4,30 +4,22 @@ if (isset($_SESSION['email'])) {header('Location: home.php');}
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  include 'resources/db_connect.php';
   $_POST['email'] = test_input($_POST['email']);
   $_POST['password'] = test_input($_POST['password']);
-  $sql = "select firstname , password from applicants where applicant_email = '" . $_POST['email'] . "'";
-  $result = mysqli_query($con,$sql);
-  if ($result->num_rows == 0 ) {
-    $error = 'email not found';
-  } else {
-    while($row = mysqli_fetch_array($result)) {
-      if ($row['password'] == $_POST['password']) {
-        // Set session vars
-        $_SESSION['email'] = $_POST['email'];
-        $_SESSION['firstname'] = $row['firstname'];
-        // Redirect to homepage
-        echo "<script>window.location.assign('home.php')</script>";
-      } else {
-        $error = 'incorrect password';
-      }
-    }
-  }
+  $_POST['confirm_password'] = test_input($_POST['confirm_password']);
+  $_POST['firstname'] = test_input($_POST['firstname']);
+  $_POST['lastname'] = test_input($_POST['lastname']);
+  $_POST['city'] = test_input($_POST['city']);
+  $_POST['country'] = test_input($_POST['country']);
+  $_POST['phone'] = test_input($_POST['phone']);
+
+  echo "POST data:<br>email=" . $_POST['email'] . " password=" . $_POST['password'] . " confirm_password=" . $_POST['confirm_password'] . " firstname=" . $_POST['firstname'] . " lastname=" . $_POST['lastname'] . " city=" . $_POST['city'] . " country=" . $_POST['country'] . " phone=" . $_POST['phone'] . "<br>";
+  include 'resources/db_connect.php';
+  //$sql = '';
+  //$result = mysqli_query($con,$sql);
 }
 
-function test_input($data)
-{
+function test_input($data) {
    $data = trim($data);
    $data = stripslashes($data);
    $data = htmlspecialchars($data);
@@ -45,7 +37,7 @@ Welcome to App-ly
 </div>
 <div id='content'>
 Sign up<br>
-<form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
+<form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' onsubmit="return validateForm()" >
 Email: <input id='email_input' type='email' name='email' size='20' required><br>
 Password: <input id='password_input' type='password' name='password' size='20' required><br>
 Confirm Password: <input id='confirm_pass_input' type='password' name='confirm_password' size='20' required><br>
@@ -75,5 +67,26 @@ echo "</script>";
 </div>
 <br>Already a member? <a href='login.php'>Login</a><br>
 </div>
+<script>
+function validateForm()
+{/*
+var x=document.forms["myForm"]["fname"].value;
+if (x==null || x=="")
+  {
+  alert("First name must be filled out");
+  return false;
+  }
+var x=document.forms["myForm"]["email"].value;
+var atpos=x.indexOf("@");
+var dotpos=x.lastIndexOf(".");
+if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+  {
+  alert("Not a valid e-mail address");
+  return false;
+  }*/
+  alert("JavaScript function preventing submit");
+  return false;
+}
+</script>
 </body>
 </html>
