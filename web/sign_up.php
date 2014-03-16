@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   include 'resources/db_connect.php';
   // Check if email already exists
   $sql = "select applicant_email from applicants where applicant_email = '" . $_POST['email'] . "'";
-  echo "Checking for existing account with sql: $sql<br>";
+  echo "Checking for existing account with sql:<br>$sql<hr>";
   $result = mysqli_query($con,$sql);
   if ($result->num_rows != 0 ) {
     echo "<script>
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $sql = "insert into applicants ( applicant_email , password , firstname , lastname , city , state , phone )
   values
   ( '".$_POST['email']."' , '".$_POST['password']."' , '".$_POST['firstname']."' , '".$_POST['lastname']."' , '".$_POST['city']."' , '".$_POST['state']."' , '".$_POST['phone']."')";
-  echo "Adding applicant with sql:<br>$sql;<br>";
+  echo "Adding applicant with sql:<br>$sql;<hr>";
 }
 
 function test_input($data) {
@@ -59,9 +59,8 @@ First name: <input id='firstname_input' type='text' name='firstname' required><b
 Last name: <input id='lastname_input' type='text' name='lastname' required><br>
 City: <input id='city_input' type='text' name='city' required><br>
 State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange='set_state();'><br>
-Phone: <input id='phone1' type='number' name='phone1' size='3' max='999' min='0' required onchange='set_phone()'> -
-<input id='phone2' type='number' name='phone2' size='3' max='999' min='0' required onchange='set_phone()'> -
-<input id='phone3' type='number' name='phone3' size='4' max='9999' min='0' required onchange='set_phone()'>
+Phone: 
+<input id='phone1' type='number' name='phone1' size='3' max='999' min='0' required onchange='set_phone()' onkeyup='if (phone1.value.toString().length == 3) {phone2.focus();}'>-<input id='phone2' type='number' name='phone2' size='3' max='999' min='0' required onchange='set_phone()' onkeyup='if (phone2.value.toString().length == 3) {phone3.focus();}' onfocus='if (phone1.value.toString().length == 0) {phone1.focus();}'>-<input id='phone3' type='number' name='phone3' size='4' max='9999' min='0' required onchange='set_phone()' onfocus='if (phone2.value.toString().length == 0) {phone2.focus();}'>
 <input id='phone' type='text' name='phone' size='20' hidden><br>
 <input type='submit'><br>
 </form>
@@ -85,6 +84,10 @@ echo "</script>";
 <br>Already a member? <a href='login.php'>Login</a><br>
 </div>
 <script>
+var phone1=document.getElementById('phone1');
+var phone2=document.getElementById('phone2');
+var phone3=document.getElementById('phone3');
+
 function set_state() {
   var x=document.getElementById("state_input");
   x.value=x.value.toUpperCase();
@@ -119,10 +122,9 @@ function validateForm()
   if (error != '') {
     alert(error);
     return false;
-  } else {
-    var msg='Submitting data as email='+email+' password='+password+' firstname='+firstname+' lastname='+lastname+' city='+city+' state='+state+' phone='+phone;
-    alert(msg);
   }
+  //var msg='Submitting data as email='+email+' password='+password+' firstname='+firstname+' lastname='+lastname+' city='+city+' state='+state+' phone='+phone;
+  //alert(msg);
   //alert("JavaScript function preventing submit"); return false;
 }
 </script>
