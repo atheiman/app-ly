@@ -13,11 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $_POST['state'] = test_input($_POST['state']);
   $_POST['phone'] = test_input($_POST['phone']);
 
-  echo "POST data: email=" . $_POST['email'] . " password=" . $_POST['password'] . " confirm_password=" . $_POST['confirm_password'] . " firstname=" . $_POST['firstname'] . " lastname=" . $_POST['lastname'] . " city=" . $_POST['city'] . " state=" . $_POST['state'] . " phone=" . $_POST['phone'] . "<br>";
   include 'resources/db_connect.php';
   // Check if email already exists
   $sql = "select applicant_email from applicants where applicant_email = '" . $_POST['email'] . "'";
-  echo "Checking for existing account with sql:<br>$sql<hr>";
   $result = mysqli_query($con,$sql);
   if ($result->num_rows != 0 ) {
     echo "<script>
@@ -30,7 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $sql = "insert into applicants ( applicant_email , password , firstname , lastname , city , state , phone )
   values
   ( '".$_POST['email']."' , '".$_POST['password']."' , '".$_POST['firstname']."' , '".$_POST['lastname']."' , '".$_POST['city']."' , '".$_POST['state']."' , '".$_POST['phone']."')";
-  echo "Adding applicant with sql:<br>$sql;<hr>";
+  $result = mysqli_query($con,$sql);
+  if (mysqli_connect_errno()) {die("Failed to connect to MySQL: " . mysqli_connect_error());}
+  // Set Session vars
+  $_SESSION['email'] = $_POST['email'];
+  $_SESSION['firstname'] = $_POST['firstname'];
+  echo "<script>window.location.assign('home.php');</script>";
 }
 
 function test_input($data) {
@@ -114,18 +117,18 @@ function validateForm()
   
   var error = '';
   if (password != confirm_password) {
-    error = error.concat('Confirm password does not match. ');
+    error = error.concat('\'Password\' and \'Confirm Password\' do not match.\n');
   }
   if (phone.length != 12) {
-    error = error.concat('Phone format incorrect. ');
+    error = error.concat('Phone format incorrect. Format should be XXX-XXX-XXXX\n');
+  }
+  if (state.length != 2) {
+    error = error.concat('State should be a 2-digit code. Ex: \'Kansas\' is \'KS\'.\n');
   }
   if (error != '') {
     alert(error);
     return false;
   }
-  //var msg='Submitting data as email='+email+' password='+password+' firstname='+firstname+' lastname='+lastname+' city='+city+' state='+state+' phone='+phone;
-  //alert(msg);
-  //alert("JavaScript function preventing submit"); return false;
 }
 </script>
 </body>
