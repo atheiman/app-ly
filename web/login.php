@@ -46,7 +46,9 @@ Welcome to App-ly
 <div id='content'>
 Login<br>
 <form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
-Email: <input id='email_input' type='email' name='email' size='20' required><br>
+Email: <input id='email_input' type='email' name='email' size='20' required
+<?php if (isset($_GET['email'])) {echo "value=".$_GET['email']." "; } ?>
+><br>
 Password: <input id='password_input' type='password' name='password' size='20' required><br>
 <input type='submit' value='Login'><br>
 </form>

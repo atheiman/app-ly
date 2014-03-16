@@ -22,12 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   if ($result->num_rows != 0 ) {
     echo "<script>
     alert('There is already an account associated with ".$_POST['email'].", redirecting you to login page.');
-    window.location.assign('login.php');
+    window.location.assign('login.php?email=".$_POST['email']."');
     </script>";
   }
   mysqli_free_result($result);
   // Add user to applicants table
-  $sql = "insert into applicants (
+  $sql = "insert into applicants ( applicant_email , password , firstname , lastname , city , state , phone )
+  values
+  ( '".$_POST['email']."' , '".$_POST['password']."' , '".$_POST['firstname']."' , '".$_POST['lastname']."' , '".$_POST['city']."' , '".$_POST['state']."' , '".$_POST['phone']."')";
+  echo "Adding applicant with sql:<br>$sql;<br>";
 }
 
 function test_input($data) {
@@ -50,16 +53,16 @@ Welcome to App-ly
 Sign up<br>
 <form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' onsubmit="return validateForm()" >
 Email: <input id='email_input' type='email' name='email' size='20' required><br>
-Password: <input id='password_input' type='password' name='password' size='20' required><br>
-Confirm Password: <input id='confirm_pass_input' type='password' name='confirm_password' size='20' required><br>
-First name: <input id='firstname_input' type='text' name='firstname' size='20' required><br>
-Last name: <input id='lastname_input' type='text' name='lastname' size='20' required><br>
-City: <input id='city_input' type='text' name='city' size='20' required><br>
-State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required><br>
+Password: <input id='password_input' type='password' name='password' required><br>
+Confirm Password: <input id='confirm_pass_input' type='password' name='confirm_password' required><br>
+First name: <input id='firstname_input' type='text' name='firstname' required><br>
+Last name: <input id='lastname_input' type='text' name='lastname' required><br>
+City: <input id='city_input' type='text' name='city' required><br>
+State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange='set_state();'><br>
 Phone: <input id='phone1' type='number' name='phone1' size='3' max='999' min='0' required onchange='set_phone()'> -
 <input id='phone2' type='number' name='phone2' size='3' max='999' min='0' required onchange='set_phone()'> -
 <input id='phone3' type='number' name='phone3' size='4' max='9999' min='0' required onchange='set_phone()'>
-<input id='phone' type='text' name='phone' size='20'><br>
+<input id='phone' type='text' name='phone' size='20' hidden><br>
 <input type='submit'><br>
 </form>
 <div id='error'>
@@ -82,8 +85,11 @@ echo "</script>";
 <br>Already a member? <a href='login.php'>Login</a><br>
 </div>
 <script>
-function set_phone()
-{
+function set_state() {
+  var x=document.getElementById("state_input");
+  x.value=x.value.toUpperCase();
+}
+function set_phone() {
   var phone1=document.forms['login_form']['phone1'].value.toString();
   var phone2=document.forms['login_form']['phone2'].value.toString();
   var phone3=document.forms['login_form']['phone3'].value.toString();
