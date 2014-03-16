@@ -5,18 +5,18 @@ delete from jobs ;
 delete from work_history ;
 delete from applicants ;
 
-insert into jobs ( title , tags , description , city , country , posted , expiration , openings )
+insert into jobs ( title , tags , description , city , state , posted , expiration , openings )
 values
-( 'Systems Engineer' , 'technology computer science engineering' , 'If you are an experienced Linux Systems Engineer; The Intersect Group has an exciting opportunity for you! We create unparalleled value for our clients and candidates by combining industry-leading consulting capabilities with comprehensive staffing and recruitment services. One of our clients is seeking a System Administrator Generalist with a strong website support background that can provide technical expertise for database administrators, applications developers, and application owners. If that sounds like you and your ready to take your career to the next level; let us help you succeed at the intersection of work and life!' , 'Kansas City' , 'United States' , '2014-03-12' , '2014-05-15' , 2 ) ,
-( 'DevOps Engineer' , 'technology computer science engineering' , 'The Data DevOps Engineer plans and conducts activities concerned with ensuring the performance and reliability of our software applications.  This includes monitoring, validating changes, gathering and reporting metrics, testing, incident management, change management, etc.  Able to install, debug and support various environments that support CSIdentity applications.  The Data Engineering Support Engineer is expected to complete tasks independently and with minimum support from management staff.  S/he has a strong ability to grasp new technologies and acquire new skills through independent study and interaction with other team members.' , 'Atlanta' , 'United States' , '2014-03-10' , '2014-06-01' , 1 ) 
+( 'Systems Engineer' , 'technology computer science engineering' , 'If you are an experienced Linux Systems Engineer; The Intersect Group has an exciting opportunity for you! We create unparalleled value for our clients and candidates by combining industry-leading consulting capabilities with comprehensive staffing and recruitment services. One of our clients is seeking a System Administrator Generalist with a strong website support background that can provide technical expertise for database administrators, applications developers, and application owners. If that sounds like you and your ready to take your career to the next level; let us help you succeed at the intersection of work and life!' , 'Kansas City' , 'KS' , '2014-03-12' , '2014-05-15' , 2 ) ,
+( 'DevOps Engineer' , 'technology computer science engineering' , 'The Data DevOps Engineer plans and conducts activities concerned with ensuring the performance and reliability of our software applications.  This includes monitoring, validating changes, gathering and reporting metrics, testing, incident management, change management, etc.  Able to install, debug and support various environments that support CSIdentity applications.  The Data Engineering Support Engineer is expected to complete tasks independently and with minimum support from management staff.  S/he has a strong ability to grasp new technologies and acquire new skills through independent study and interaction with other team members.' , 'Atlanta' , 'GA' , '2014-03-10' , '2014-06-01' , 1 ) 
 ;
 
-insert into applicants ( applicant_email , password , firstname , lastname , city , country , phone )
+insert into applicants ( applicant_email , password , firstname , lastname , city , state , phone )
 values
-( 'spongebob@pineapple.com' , 'spongebobpass' , 'Spongebob' , 'Squarepants' , 'Dallas' , 'United States' , '934-481-6095' ) ,
-( 'patrick@rock.com' , 'patrickpass' , 'Patrick' , 'Star' , 'Ontario' , 'Canada' , '724-589-3759' ) ,
-( 'squidward@easterisland.net' , 'squidwardpass' , 'Squidward' , 'Tentacles' , 'Seattle' , 'United States' , '485-592-6703' ) ,
-( 'sandy@dome.org' , 'sandypass' , 'Sandy' , 'Cheeks' , 'Houston' , 'United States' , '452-547-9703' )
+( 'spongebob@pineapple.com' , 'spongebobpass' , 'Spongebob' , 'Squarepants' , 'Dallas' , 'TX' , '934-481-6095' ) ,
+( 'patrick@rock.com' , 'patrickpass' , 'Patrick' , 'Star' , 'Denver' , 'CO' , '724-589-3759' ) ,
+( 'squidward@easterisland.net' , 'squidwardpass' , 'Squidward' , 'Tentacles' , 'Seattle' , 'WA' , '485-592-6703' ) ,
+( 'sandy@dome.org' , 'sandypass' , 'Sandy' , 'Cheeks' , 'Houston' , 'TX' , '452-547-9703' )
 ;
 
 insert into work_history ( applicant_email , title , employer , start_date , end_date , reason_for_leaving )

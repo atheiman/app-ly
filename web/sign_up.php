@@ -17,8 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   include 'resources/db_connect.php';
   // Check if email already exists
   $sql = "select applicant_email from applicants where applicant_email = '" . $_POST['email'] . "'";
-  echo "sql: $sql<br>";
-  //$result = mysqli_query($con,$sql);
+  echo "Checking for existing account with sql: $sql<br>";
+  $result = mysqli_query($con,$sql);
+  if ($result->num_rows != 0 ) {
+    echo "<script>
+    alert('There is already an account associated with ".$_POST['email'].", redirecting you to login page.');
+    window.location.assign('login.php');
+    </script>";
+  }
+  mysqli_free_result($result);
+  // Add user to applicants table
+  $sql = "insert into applicants (
 }
 
 function test_input($data) {
