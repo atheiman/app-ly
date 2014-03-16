@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $current_phone = $row['phone'];
   }
   mysqli_free_result($result);
-  $msg = 'Press update to make changes.';
+  $msg = "Press 'Update' to make changes.";
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $_POST['email'] = test_input($_POST['email']);
   $_POST['firstname'] = test_input($_POST['firstname']);
@@ -63,7 +63,7 @@ Last name: <input id='lastname_input' type='text' name='lastname' required <?php
 City: <input id='city_input' type='text' name='city' required <?php echo "value='$current_city'"; ?>><br>
 State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange='set_state();' <?php echo "value='$current_state'"; ?>><br>
 Phone: <input id='phone' type='text' name='phone' required <?php echo "value='$current_phone'"; ?>><br>
-<input type='submit'><br>
+<input type='submit' value='Update'><br>
 </form>
 <div id='msg'><?php echo $msg; ?>
 </div>
@@ -84,10 +84,35 @@ function validateForm()
   var state=document.forms['login_form']['state'].value;
   state=state.toUpperCase();
   var phone=document.forms['login_form']['phone'].value;
-  
   var error = '';
-  if (phone.length != 12) {
-    error = error.concat('Phone format incorrect. Format should be XXX-XXX-XXXX\n');
+  var numbers = new Array('0','1','2','3','4','5','6','7','8','9');
+  var phone_err = 'Phone format incorrect. Format should be XXX-XXX-XXXX\n';
+  if (numbers.indexOf(phone.charAt(0)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(1)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(2)) == -1) {
+    error = phone_err;
+  } else if (phone.charAt(3) != '-') {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(4)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(5)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(6)) == -1) {
+    error = phone_err;
+  } else if (phone.charAt(7) != '-') {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(8)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(9)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(10)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(11)) == -1) {
+    error = phone_err;
+  } else if (phone.length != 12) {
+    error = phone_err;
   }
   if (state.length != 2) {
     error = error.concat('State should be a 2-digit code. Ex: \'Kansas\' is \'KS\'.\n');

@@ -62,9 +62,7 @@ First name: <input id='firstname_input' type='text' name='firstname' required><b
 Last name: <input id='lastname_input' type='text' name='lastname' required><br>
 City: <input id='city_input' type='text' name='city' required><br>
 State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange='set_state();'><br>
-Phone: 
-<input id='phone1' type='number' name='phone1' size='3' max='999' min='0' required onchange='set_phone()' onkeyup='if (phone1.value.toString().length == 3) {phone2.focus();}'>-<input id='phone2' type='number' name='phone2' size='3' max='999' min='0' required onchange='set_phone()' onkeyup='if (phone2.value.toString().length == 3) {phone3.focus();}' onfocus='if (phone1.value.toString().length == 0) {phone1.focus();}'>-<input id='phone3' type='number' name='phone3' size='4' max='9999' min='0' required onchange='set_phone()' onfocus='if (phone2.value.toString().length == 0) {phone2.focus();}'>
-<input id='phone' type='text' name='phone' size='20' hidden><br>
+Phone: <input id='phone' type='text' name='phone' required><br>
 <input type='submit'><br>
 </form>
 <div id='error'>
@@ -87,20 +85,9 @@ echo "</script>";
 <br>Already a member? <a href='login.php'>Login</a><br>
 </div>
 <script>
-var phone1=document.getElementById('phone1');
-var phone2=document.getElementById('phone2');
-var phone3=document.getElementById('phone3');
-
 function set_state() {
   var x=document.getElementById("state_input");
   x.value=x.value.toUpperCase();
-}
-function set_phone() {
-  var phone1=document.forms['login_form']['phone1'].value.toString();
-  var phone2=document.forms['login_form']['phone2'].value.toString();
-  var phone3=document.forms['login_form']['phone3'].value.toString();
-  var phone=document.forms['login_form']['phone'];
-  phone.value=phone1+'-'+phone2+'-'+phone3;
 }
 
 function validateForm()
@@ -116,11 +103,34 @@ function validateForm()
   var phone=document.forms['login_form']['phone'].value;
   
   var error = '';
-  if (password != confirm_password) {
-    error = error.concat('\'Password\' and \'Confirm Password\' do not match.\n');
-  }
-  if (phone.length != 12) {
-    error = error.concat('Phone format incorrect. Format should be XXX-XXX-XXXX\n');
+  var numbers = new Array('0','1','2','3','4','5','6','7','8','9');
+  var phone_err = 'Phone format incorrect. Format should be XXX-XXX-XXXX\n';
+  if (numbers.indexOf(phone.charAt(0)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(1)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(2)) == -1) {
+    error = phone_err;
+  } else if (phone.charAt(3) != '-') {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(4)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(5)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(6)) == -1) {
+    error = phone_err;
+  } else if (phone.charAt(7) != '-') {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(8)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(9)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(10)) == -1) {
+    error = phone_err;
+  } else if (numbers.indexOf(phone.charAt(11)) == -1) {
+    error = phone_err;
+  } else if (phone.length != 12) {
+    error = phone_err;
   }
   if (state.length != 2) {
     error = error.concat('State should be a 2-digit code. Ex: \'Kansas\' is \'KS\'.\n');
