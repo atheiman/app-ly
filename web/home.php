@@ -1,8 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['email']) {
-  header('Location: http://www.example.com/');
-  header('Location: applicant_login.php');
+if (!isset($_SESSION['email'])) {
+  header('Location: login.php');
 }
 ?>
 <!doctype html>
@@ -11,11 +10,12 @@ if (!isset($_SESSION['email']) {
 </head>
 <body>
 <div id='page_title'>
-Welcome to App-ly
+Applicant Home
 </div>
 <div id='content'>
-<?php var_dump($_SESSION);?>
-<br>
+Welcome back, <?php echo $_SESSION['firstname']; ?><br>
+<a href='profile.php'>Update your profile</a><br>
+<a href='jobs.php'>Browse openings</a><br>
 <a href='logout.php'>Logout</a><br>
 </div>
 </body>

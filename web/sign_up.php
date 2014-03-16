@@ -44,11 +44,17 @@ function test_input($data)
 Welcome to App-ly
 </div>
 <div id='content'>
-Login<br>
+Sign up<br>
 <form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
 Email: <input id='email_input' type='email' name='email' size='20' required><br>
 Password: <input id='password_input' type='password' name='password' size='20' required><br>
-<input type='submit' value='Login'><br>
+Confirm Password: <input id='confirm_pass_input' type='password' name='confirm_password' size='20' required><br>
+First name: <input id='firstname_input' type='text' name='firstname' size='20' required><br>
+Last name: <input id='lastname_input' type='text' name='lastname' size='20' required><br>
+City: <input id='city_input' type='text' name='city' size='20' required><br>
+Country: <select id='country_select' name='country'><option value='United States'>United States</option><option value='Canada'>Canada</option><option value='Mexico'>Mexico</option></select><br>
+Phone: <input id='phone_input' type='text' name='phone' size='20' maxlength='12' required> xxx-xxx-xxxx<br>
+<input type='submit'><br>
 </form>
 <div id='error'>
 <?php
@@ -67,7 +73,7 @@ if ($error == 'incorrect password') {
 echo "</script>";
 ?>
 </div>
-<br>Not a member yet? <a href='sign_up.php'>Sign up</a><br>
+<br>Already a member? <a href='login.php'>Login</a><br>
 </div>
 </body>
 </html>
