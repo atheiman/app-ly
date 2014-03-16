@@ -10,11 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $_POST['firstname'] = test_input($_POST['firstname']);
   $_POST['lastname'] = test_input($_POST['lastname']);
   $_POST['city'] = test_input($_POST['city']);
-  $_POST['country'] = test_input($_POST['country']);
+  $_POST['state'] = test_input($_POST['state']);
   $_POST['phone'] = test_input($_POST['phone']);
 
-  echo "POST data:<br>email=" . $_POST['email'] . " password=" . $_POST['password'] . " confirm_password=" . $_POST['confirm_password'] . " firstname=" . $_POST['firstname'] . " lastname=" . $_POST['lastname'] . " city=" . $_POST['city'] . " country=" . $_POST['country'] . " phone=" . $_POST['phone'] . "<br>";
+  echo "POST data:<br>email=" . $_POST['email'] . " password=" . $_POST['password'] . " confirm_password=" . $_POST['confirm_password'] . " firstname=" . $_POST['firstname'] . " lastname=" . $_POST['lastname'] . " city=" . $_POST['city'] . " state=" . $_POST['state'] . " phone=" . $_POST['phone'] . "<br>";
   include 'resources/db_connect.php';
+  
   //$sql = '';
   //$result = mysqli_query($con,$sql);
 }
@@ -44,8 +45,11 @@ Confirm Password: <input id='confirm_pass_input' type='password' name='confirm_p
 First name: <input id='firstname_input' type='text' name='firstname' size='20' required><br>
 Last name: <input id='lastname_input' type='text' name='lastname' size='20' required><br>
 City: <input id='city_input' type='text' name='city' size='20' required><br>
-Country: <select id='country_select' name='country'><option value='United States'>United States</option><option value='Canada'>Canada</option><option value='Mexico'>Mexico</option></select><br>
-Phone: <input id='phone_input' type='text' name='phone' size='20' maxlength='12' required> xxx-xxx-xxxx<br>
+State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required><br>
+Phone: <input id='phone1' type='number' name='phone1' size='3' max='999' min='0' required onchange='set_phone()'> -
+<input id='phone2' type='number' name='phone2' size='3' max='999' min='0' required onchange='set_phone()'> -
+<input id='phone3' type='number' name='phone3' size='4' max='9999' min='0' required onchange='set_phone()'>
+<input id='phone' type='text' name='phone' size='20' hidden><br>
 <input type='submit'><br>
 </form>
 <div id='error'>
@@ -68,24 +72,42 @@ echo "</script>";
 <br>Already a member? <a href='login.php'>Login</a><br>
 </div>
 <script>
+function set_phone()
+{
+  var phone1=document.forms['login_form']['phone1'].value.toString();
+  var phone2=document.forms['login_form']['phone2'].value.toString();
+  var phone3=document.forms['login_form']['phone3'].value.toString();
+  var phone=document.getElementById('phone');
+  phone.value=phone1+'-'+phone2+'-'+phone3;
+}
+
 function validateForm()
-{/*
-var x=document.forms["myForm"]["fname"].value;
-if (x==null || x=="")
-  {
-  alert("First name must be filled out");
-  return false;
-  }
-var x=document.forms["myForm"]["email"].value;
-var atpos=x.indexOf("@");
-var dotpos=x.lastIndexOf(".");
-if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
-  {
-  alert("Not a valid e-mail address");
-  return false;
-  }*/
-  alert("JavaScript function preventing submit");
-  return false;
+{
+  var email=document.forms['login_form']['email'].value;
+  var password=document.forms['login_form']['password'].value;
+  var confirm_password=document.forms['login_form']['confirm_password'].value;
+  var firstname=document.forms['login_form']['firstname'].value;
+  var lastname=document.forms['login_form']['lastname'].value;
+  var city=document.forms['login_form']['city'].value;
+  var state=document.forms['login_form']['state'].value;
+  state=state.toUpperCase();
+  var phone=document.forms['login_form']['phone'].value;
+  
+  //alert(email + password + confirm_password + firstname + lastname + city + state + phone);
+  //var error = '';
+  //if (password != confirm_password) {
+  //  error = error.concat('Confirm password does not match. ');
+  //}
+  //if (phone.length != 10) {
+  //  error = error.concat('Phone format incorrect. ');
+
+  //if (error != '') {
+  //  alert(error);
+  //  return false;
+  //} else {
+    var msg='Submitting data as email='+email+' password='+password+' firstname='+firstname+' lastname='+lastname+' city='+city+' state='+state+' phone='+phone;
+    alert(msg);
+  //alert("JavaScript function preventing submit"); return false;
 }
 </script>
 </body>
