@@ -13,10 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $_POST['state'] = test_input($_POST['state']);
   $_POST['phone'] = test_input($_POST['phone']);
 
-  echo "POST data:<br>email=" . $_POST['email'] . " password=" . $_POST['password'] . " confirm_password=" . $_POST['confirm_password'] . " firstname=" . $_POST['firstname'] . " lastname=" . $_POST['lastname'] . " city=" . $_POST['city'] . " state=" . $_POST['state'] . " phone=" . $_POST['phone'] . "<br>";
+  echo "POST data: email=" . $_POST['email'] . " password=" . $_POST['password'] . " confirm_password=" . $_POST['confirm_password'] . " firstname=" . $_POST['firstname'] . " lastname=" . $_POST['lastname'] . " city=" . $_POST['city'] . " state=" . $_POST['state'] . " phone=" . $_POST['phone'] . "<br>";
   include 'resources/db_connect.php';
-  
-  //$sql = '';
+  // Check if email already exists
+  $sql = "select applicant_email from applicants where applicant_email = '" . $_POST['email'] . "'";
+  echo "sql: $sql<br>";
   //$result = mysqli_query($con,$sql);
 }
 
@@ -49,7 +50,7 @@ State: <input id='state_input' type='text' name='state' size='2' maxlength='2' r
 Phone: <input id='phone1' type='number' name='phone1' size='3' max='999' min='0' required onchange='set_phone()'> -
 <input id='phone2' type='number' name='phone2' size='3' max='999' min='0' required onchange='set_phone()'> -
 <input id='phone3' type='number' name='phone3' size='4' max='9999' min='0' required onchange='set_phone()'>
-<input id='phone' type='text' name='phone' size='20' hidden><br>
+<input id='phone' type='text' name='phone' size='20'><br>
 <input type='submit'><br>
 </form>
 <div id='error'>
@@ -77,7 +78,7 @@ function set_phone()
   var phone1=document.forms['login_form']['phone1'].value.toString();
   var phone2=document.forms['login_form']['phone2'].value.toString();
   var phone3=document.forms['login_form']['phone3'].value.toString();
-  var phone=document.getElementById('phone');
+  var phone=document.forms['login_form']['phone'];
   phone.value=phone1+'-'+phone2+'-'+phone3;
 }
 
@@ -93,20 +94,20 @@ function validateForm()
   state=state.toUpperCase();
   var phone=document.forms['login_form']['phone'].value;
   
-  //alert(email + password + confirm_password + firstname + lastname + city + state + phone);
-  //var error = '';
-  //if (password != confirm_password) {
-  //  error = error.concat('Confirm password does not match. ');
-  //}
-  //if (phone.length != 10) {
-  //  error = error.concat('Phone format incorrect. ');
-
-  //if (error != '') {
-  //  alert(error);
-  //  return false;
-  //} else {
+  var error = '';
+  if (password != confirm_password) {
+    error = error.concat('Confirm password does not match. ');
+  }
+  if (phone.length != 12) {
+    error = error.concat('Phone format incorrect. ');
+  }
+  if (error != '') {
+    alert(error);
+    return false;
+  } else {
     var msg='Submitting data as email='+email+' password='+password+' firstname='+firstname+' lastname='+lastname+' city='+city+' state='+state+' phone='+phone;
     alert(msg);
+  }
   //alert("JavaScript function preventing submit"); return false;
 }
 </script>
