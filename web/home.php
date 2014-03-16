@@ -13,7 +13,7 @@ if (!isset($_SESSION['email'])) {
 Applicant Home
 </div>
 <div id='content'>
-Welcome back, <?php echo $_SESSION['firstname']; ?><br>
+Welcome, <?php echo $_SESSION['firstname']; ?><br>
 <a href='profile.php'>Update your profile</a><br>
 <a href='work_history.php'>Update your work history</a><br>
 <a href='jobs.php'>Browse openings</a><br>
