@@ -3,7 +3,9 @@ use app_ly;
 delete from applied ;
 delete from jobs ;
 delete from work_history ;
+delete from comments ;
 delete from applicants ;
+delete from users ;
 
 insert into jobs ( title , tags , description , city , state , posted , expiration , openings )
 values
