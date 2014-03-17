@@ -1,0 +1,33 @@
+body {
+  max-width: 1000px;
+  min-width: 800px;
+  margin: 0 auto;
+  font-family: arial;
+  font-size: 1em;
+}
+
+#page_title {
+  font-size: 130%;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+#content {
+  margin-top: 10px;
+}
+
+.gray {
+  color: #808080;
+}
+
+.small {
+  font-size: 70%;
+}
+
+.right {
+  float: right;
+}
+
+.red {
+  color: red;
+}

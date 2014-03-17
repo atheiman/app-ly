@@ -7,6 +7,7 @@ if (!isset($_SESSION['email'])) {
 <!doctype html>
 <html>
 <title>App-ly</title>
+<link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
 <body>
 <div id='page_title'>

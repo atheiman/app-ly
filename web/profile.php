@@ -50,6 +50,7 @@ function test_input($data) {
 <!doctype html>
 <head>
 <title>App-ly</title>
+<link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
 <body>
 <div id='page_title'>

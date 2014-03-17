@@ -38,13 +38,13 @@ function test_input($data)
 <!doctype html>
 <head>
 <title>App-ly</title>
+<link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
 <body>
 <div id='page_title'>
-Welcome to App-ly
+Login to App-ly
 </div>
 <div id='content'>
-Login<br>
 <form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>'>
 Email: <input id='email_input' type='email' name='email' size='20' required
 <?php if (isset($_GET['email'])) {echo "value=".$_GET['email']." "; } ?>
@@ -52,7 +52,7 @@ Email: <input id='email_input' type='email' name='email' size='20' required
 Password: <input id='password_input' type='password' name='password' size='20' required><br>
 <input type='submit' value='Login'><br>
 </form>
-<div id='error'>
+<div class='red'>
 <?php
 if ($error != '') {echo "Error: " . $error;}
 echo "<script>";
@@ -70,6 +70,7 @@ echo "</script>";
 ?>
 </div>
 <br>Not a member yet? <a href='sign_up.php'>Sign up</a><br>
+Note: this site requires JavaScript.<br>
 </div>
 </body>
 </html>

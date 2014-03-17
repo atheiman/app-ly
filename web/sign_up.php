@@ -47,13 +47,13 @@ function test_input($data) {
 <!doctype html>
 <head>
 <title>App-ly</title>
+<link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
 <body>
 <div id='page_title'>
-Welcome to App-ly
+Join App-ly
 </div>
 <div id='content'>
-Sign up<br>
 <form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' onsubmit="return validateForm()" >
 Email: <input id='email_input' type='email' name='email' size='20' required><br>
 Password: <input id='password_input' type='password' name='password' required><br>
@@ -62,7 +62,7 @@ First name: <input id='firstname_input' type='text' name='firstname' required><b
 Last name: <input id='lastname_input' type='text' name='lastname' required><br>
 City: <input id='city_input' type='text' name='city' required><br>
 State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange='set_state();'><br>
-Phone: <input id='phone' type='text' name='phone' required><br>
+Phone: <input id='phone' type='text' name='phone' required> <span class='gray small'>XXX-XXX-XXXX</span><br>
 <input type='submit'><br>
 </form>
 <div id='error'>
@@ -134,6 +134,9 @@ function validateForm()
   }
   if (state.length != 2) {
     error = error.concat('State should be a 2-digit code. Ex: \'Kansas\' is \'KS\'.\n');
+  }
+  if (password != confirm_password) {
+    error = error.concat('Password and Confirm Password do not match.\n');
   }
   if (error != '') {
     alert(error);
