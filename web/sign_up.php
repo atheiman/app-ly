@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $result = mysqli_query($con,$sql);
   if ($result->num_rows != 0 ) {
     echo "<script>
-    alert('There is already an account associated with ".$_POST['email'].", redirecting you to login page.');
+    alert('There is already an account associated with ".$_POST['email'].", redirecting you...');
     window.location.assign('login.php?email=".$_POST['email']."');
     </script>";
   }
@@ -82,7 +82,7 @@ if ($error == 'incorrect password') {
 echo "</script>";
 ?>
 </div>
-<br>Already a member? <a href='login.php'>Login</a><br>
+<hr>Already a member? <a href='login.php'>Login</a><br>
 </div>
 <script>
 function set_state() {

@@ -52,7 +52,7 @@ function test_input($data) {
 <title>App-ly</title>
 <link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
-<body>
+<body onload="setTimeout(function() {document.getElementById('msg').innerHTML='Press \'Update\' to make changes.'} , 2000)">
 <div id='page_title'>
 Update your profile
 </div>
@@ -68,7 +68,7 @@ Phone: <input id='phone' type='text' name='phone' required <?php echo "value='$c
 </form>
 <div id='msg'><?php echo $msg; ?>
 </div>
-<br><a href='home.php'>Home</a><br>
+<hr><a href='home.php'>Home</a><br>
 </div>
 <script>
 function set_state() {
