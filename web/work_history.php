@@ -11,33 +11,38 @@ function test_input($data) {
 }
 include 'resources/db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $_POST['title'] = test_input($_POST['title']);
-  $_POST['employer'] = test_input($_POST['employer']);
-  $_POST['start_date'] = test_input($_POST['start_date']);
-  $_POST['end_date'] = test_input($_POST['end_date']);
-  $_POST['reason_for_leaving'] = test_input($_POST['reason_for_leaving']);
+  if (isset($_POST['sql'])) {
+    $sql = $_POST['sql'];
+    echo $sql;
+    $result = mysqli_query($con,$sql);
+  } else {
+    $_POST['title'] = test_input($_POST['title']);
+    $_POST['employer'] = test_input($_POST['employer']);
+    $_POST['start_date'] = test_input($_POST['start_date']);
+    $_POST['end_date'] = test_input($_POST['end_date']);
+    $_POST['reason_for_leaving'] = test_input($_POST['reason_for_leaving']);
 
-  // replace '' with null
-  $_POST['title'] = "'".$_POST['title']."'";
-  $_POST['employer'] = "'".$_POST['employer']."'";
-  $_POST['start_date'] = "'".$_POST['start_date']."'";
-  if ($_POST['end_date'] == '') {
-    $_POST['end_date'] = 'null';
-  } else {
-    $_POST['end_date'] = "'".$_POST['end_date']."'";
+    // replace '' with null
+    $_POST['title'] = "'".$_POST['title']."'";
+    $_POST['employer'] = "'".$_POST['employer']."'";
+    $_POST['start_date'] = "'".$_POST['start_date']."'";
+    if ($_POST['end_date'] == '') {
+      $_POST['end_date'] = 'null';
+    } else {
+      $_POST['end_date'] = "'".$_POST['end_date']."'";
+    }
+    if ($_POST['reason_for_leaving'] == '') {
+      $_POST['reason_for_leaving'] = 'null';
+    } else {
+      $_POST['reason_for_leaving'] = "'".$_POST['reason_for_leaving']."'";
+    }
+    // Set SQL query
+    $sql = "insert into work_history ( applicant_email , title , employer , start_date , end_date , reason_for_leaving )
+    values
+    ( '".$_SESSION['email']."' , ".$_POST['title']." , ".$_POST['employer']." , ".$_POST['start_date']." , ".$_POST['end_date']." , ".$_POST['reason_for_leaving']." )";
+    $result = mysqli_query($con,$sql);
   }
-  if ($_POST['reason_for_leaving'] == '') {
-    $_POST['reason_for_leaving'] = 'null';
-  } else {
-    $_POST['reason_for_leaving'] = "'".$_POST['reason_for_leaving']."'";
-  }
-  // Set SQL query
-  $sql = "insert into work_history ( applicant_email , title , employer , start_date , end_date , reason_for_leaving )
-  values
-  ( '".$_SESSION['email']."' , ".$_POST['title']." , ".$_POST['employer']." , ".$_POST['start_date']." , ".$_POST['end_date']." , ".$_POST['reason_for_leaving']." )";
-  $result = mysqli_query($con,$sql);
 }
-
 ?>
 <!doctype html>
 <html>
@@ -49,38 +54,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 Work History
 </div>
 <div id='content'>
-Add new work history<br>
+<span class='section_head'>Add new work history</span><br>
 <form method='post' name='new_wh_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' onsubmit="return validateNewWH()" >
 Title: <span class='red'>*</span> <input type='text' id='title' name='title' size='30' required><br>
 Employer: <span class='red'>*</span> <input type='text' id='employer' name='employer' size='30' required><br>
 Start Date: <span class='red'>*</span> <input type='date' id='start_date' name='start_date' required><br>
 End Date: <input type='date' id='end_date' name='end_date'><br>
-Reason for Leaving: <input type='text' id='reason_for_leaving' name='reason_for_leaving' size='40'><br>
+Reason for leaving: <input type='text' id='reason_for_leaving' name='reason_for_leaving' size='30'><br>
 <input type='submit'><br>
-</form><br>
+</form>
 <hr>
 <?php
 // Show all work_history for this email and allow deleting. (maybe in future add updating)
-$sql = "select * from work_history where applicant_email = '".$_SESSION['email']."'";
+$sql = "select wh_id , applicant_email , title , employer , start_date , end_date , reason_for_leaving from work_history where applicant_email = '".$_SESSION['email']."'";
 $result = mysqli_query($con,$sql);
 
 if ($result->num_rows != 0 ) {
-  echo "<table border=1><th>wh_id</th><th>applicant_email</th><th>title</th><th>employer</th><th>start_date</th><th>end_date</th><th>reason_for_leaving</th>";
+  echo "<span class='section_head'>Delete old work history</span>";
+  echo "<table border='1'><th>Title</th><th>Employer</th><th>Start Date</th><th>End Date</th><th>Reason for leaving</th><th>Action</th>";
   while($row = mysqli_fetch_array($result))
     {
-    echo "<tr>";
-    echo "<td>" . $row['wh_id'] . "</td>";
-    echo "<td>" . $row['applicant_email'] . "</td>";
-    echo "<td>" . $row['title'] . "</td>";
-    echo "<td>" . $row['employer'] . "</td>";
-    echo "<td>" . $row['start_date'] . "</td>";
-    echo "<td>" . $row['end_date'] . "</td>";
-    echo "<td>" . $row['reason_for_leaving'] . "</td>";
-    echo "</tr>";
+    $wh_id = $row['wh_id'];
+    $applicant_email = $row['applicant_email'];
+    $title = $row['title'];
+    $employer = $row['employer'];
+    $start_date = $row['start_date'];
+    $end_date = $row['end_date'];
+    $reason_for_leaving = $row['reason_for_leaving'];
+    $sql = "delete from work_history where wh_id = $wh_id";
+    echo "<tr><form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' onsubmit='confirm()'>";
+    echo "<td>$title</td>";
+    echo "<td>$employer</td>";
+    echo "<td>$start_date</td>";
+    echo "<td>$end_date</td>";
+    echo "<td>$reason_for_leaving</td>";
+    echo "<input type='text' name='sql' value='$sql' size='50' hidden>";
+    echo "<td><input type='submit' value='Delete'></td>";
+    echo "</form></tr>";
     }
   echo "</table>";
 } else {
-  echo "Add your first work_history so that hiring managers can see your experience!";
+  echo "<span class='section_head'>Add work history so that hiring managers can see your experience!</span>";
 }
 
 mysqli_free_result($result);
@@ -98,8 +112,6 @@ function validateNewWH() {
   var end_date = document.forms['new_wh_form']['end_date'].value;
   var reason_for_leaving = document.forms['new_wh_form']['reason_for_leaving'].value;
   
-  //alert ('values:\n'+title +'\n' + employer +'\n' + start_date +'\n' + end_date +'\n' + reason_for_leaving);
-
   if (end_date != '' && start_date > end_date) {
     error = error.concat('Start date must be before end date.\n');
   }

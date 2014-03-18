@@ -1,16 +1,24 @@
 body {
-  max-width: 1000px;
-  min-width: 800px;
+  max-width: 900px;
+  min-width: 600px;
   margin: 0 auto;
   font-family: arial;
   font-size: 1em;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 #page_title {
   font-size: 130%;
   font-weight: bold;
   margin-top: 30px;
+  margin-bottom:10px;
 }
+
+.section_head {
+  font-size: 115%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
 #content {
   margin-top: 10px;

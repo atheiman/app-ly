@@ -40,7 +40,7 @@ title varchar(255) not null,
 employer varchar(255) not null,
 start_date date not null,
 end_date date,
-reason_for_leaving text,
+reason_for_leaving varchar(255),
 primary key (wh_id),
 foreign key (applicant_email) references applicants(applicant_email)
 );
