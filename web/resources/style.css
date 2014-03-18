@@ -9,16 +9,17 @@ body {
 }
 
 #page_title {
-  font-size: 130%;
+  font-size: 150%;
   font-weight: bold;
   margin-top: 30px;
-  margin-bottom:10px;
+  margin-bottom: 20px;
 }
 
 .section_head {
-  font-size: 115%;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 125%;
+}
 
 #content {
   margin-top: 10px;
@@ -39,3 +40,10 @@ body {
 .red {
   color: red;
 }
+
+table
+{
+  border-collapse:collapse;
+  text-align:center;
+}
+
