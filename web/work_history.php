@@ -13,7 +13,6 @@ include 'resources/db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (isset($_POST['sql'])) {
     $sql = $_POST['sql'];
-    echo $sql;
     $result = mysqli_query($con,$sql);
   } else {
     $_POST['title'] = test_input($_POST['title']);
@@ -61,7 +60,7 @@ Employer: <span class='red'>*</span> <input type='text' id='employer' name='empl
 Start Date: <span class='red'>*</span> <input type='date' id='start_date' name='start_date' required><br>
 End Date: <input type='date' id='end_date' name='end_date'><br>
 Reason for leaving: <input type='text' id='reason_for_leaving' name='reason_for_leaving' size='30'><br>
-<input type='submit'><br>
+<input type='submit' id='submit'><br>
 </form>
 <?php
 // Show all work_history for this email and allow deleting. (maybe in future add updating)
@@ -81,7 +80,7 @@ if ($result->num_rows != 0 ) {
     $end_date = $row['end_date'];
     $reason_for_leaving = $row['reason_for_leaving'];
     $sql = "delete from work_history where wh_id = $wh_id";
-    echo "<tr><form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' onsubmit='confirm()'>";
+    echo "<tr><form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' onsubmit='return confirm(".'"Are you sure you want to delete your role as a '.$title.' at '.$employer.'?"'.")'>";
     echo "<td>$title</td>";
     echo "<td>$employer</td>";
     echo "<td>$start_date</td>";

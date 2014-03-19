@@ -138,6 +138,9 @@ function validateForm()
   if (password != confirm_password) {
     error = error.concat('Password and Confirm Password do not match.\n');
   }
+  if (password.length < 6) {
+    error = error.concat('Password must be at least 6 characters.\n');
+  }
   if (error != '') {
     alert(error);
     return false;

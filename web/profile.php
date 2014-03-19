@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $current_phone = $row['phone'];
   }
   mysqli_free_result($result);
-  $msg = "Press 'Update' to make changes.";
+  $msg = "";
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $_POST['email'] = test_input($_POST['email']);
   $_POST['firstname'] = test_input($_POST['firstname']);
@@ -52,25 +52,28 @@ function test_input($data) {
 <title>App-ly</title>
 <link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
-<body onload="setTimeout(function() {document.getElementById('msg').innerHTML='Press \'Update\' to make changes.'} , 2000)">
+<body onload="setTimeout(function() {document.getElementById('msg').innerHTML=''} , 2000)">
 <div id='page_title'>
 Update your profile
 </div>
 <div id='content'>
 <form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' onsubmit="return validateForm()" >
-Email: <input id='email_input' type='email' name='email' size='20' required <?php echo "value='$current_email'"; ?>><br>
+Email: <input id='email_input' type='email' name='email' size='20' required <?php echo "value='$current_email'"; ?> onkeypress='enable_update()'><br>
 First name: <input id='firstname_input' type='text' name='firstname' required <?php echo "value='$current_first'"; ?>><br>
 Last name: <input id='lastname_input' type='text' name='lastname' required <?php echo "value='$current_last'"; ?>><br>
 City: <input id='city_input' type='text' name='city' required <?php echo "value='$current_city'"; ?>><br>
 State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange='set_state();' <?php echo "value='$current_state'"; ?>><br>
 Phone: <input id='phone' type='text' name='phone' required <?php echo "value='$current_phone'"; ?>><br>
-<input type='submit' value='Update'><br>
+<input type='submit' id='update' value='Update' disabled><br>
 </form>
 <div id='msg'><?php echo $msg; ?>
 </div>
 <hr><a href='home.php'>Home</a><br>
 </div>
 <script>
+function enable_update() {
+  document.getElementById('update').disabled = false;
+}
 function set_state() {
   var x=document.getElementById("state_input");
   x.value=x.value.toUpperCase();

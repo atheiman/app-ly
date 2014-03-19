@@ -20,14 +20,23 @@ function test_input($data) {
 Jobs
 </div>
 <div id='content'>
+<a href='search_jobs.php'>Edit your search filters</a> or <a href='jobs.php'>remove them</a>.
 <?php
 include 'resources/db_connect.php';
-$sql = "select * from jobs";
+if (isset($_GET['state'])) {
+  $state = $_GET['state'];
+  $sql = "select * from jobs where state = '$state'";
+} elseif (isset($_GET['city'])) {
+  $city = $_GET['city'];
+  $sql = "select * from jobs where city = '$city'";
+} else {
+  $sql = "select * from jobs";
+}
 $result = mysqli_query($con,$sql);
 if ($result->num_rows == 0) {
   echo "Sorry, no jobs currently listed. Check back soon!";
 } else {
-  echo "<table border='1' cellpadding='3'><th>Title</th><th>Tags</th><th>City</th><th>State</th><th>Expiration Date</th><th>Openings</th><th>Date Posted</th><th>More Info</th><th>Apply</th>";
+  echo "<table border='1' cellpadding='3'><th>Title</th><th>City</th><th>State</th><th>Expires</th><th>Openings</th><th>Posted</th><th>More Info</th><th>Apply</th>";
   while($row = mysqli_fetch_array($result)) {
     $job_id = $row['job_id'];
     $title = $row['title'];
@@ -40,7 +49,6 @@ if ($result->num_rows == 0) {
     $posted = $row['posted'];
     echo "<tr>";
     echo "<td>$title</td>";
-    echo "<td>$tags</td>";
     echo "<td>$city</td>";
     echo "<td>$state</td>";
     echo "<td>$expiration</td>";
@@ -51,8 +59,8 @@ if ($result->num_rows == 0) {
     echo "</tr>";
   }
   echo "</table>";
-  mysqli_free_result($result);
 }
+mysqli_free_result($result);
 ?>
 <hr>
 <a href='home.php'>Home</a><br>
