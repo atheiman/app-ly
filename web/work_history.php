@@ -55,8 +55,8 @@ Work History
 <div id='content'>
 <div class='section_head'>Add new work history</div>
 <form method='post' name='new_wh_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' onsubmit="return validateNewWH()" >
-Title: <span class='red'>*</span> <input type='text' id='title' name='title' size='30' required><br>
 Employer: <span class='red'>*</span> <input type='text' id='employer' name='employer' size='30' required><br>
+Title: <span class='red'>*</span> <input type='text' id='title' name='title' size='30' required><br>
 Start Date: <span class='red'>*</span> <input type='date' id='start_date' name='start_date' required><br>
 End Date: <input type='date' id='end_date' name='end_date'><br>
 Reason for leaving: <input type='text' id='reason_for_leaving' name='reason_for_leaving' size='30'><br>
@@ -68,7 +68,7 @@ $sql = "select wh_id , applicant_email , title , employer , start_date , end_dat
 $result = mysqli_query($con,$sql);
 
 if ($result->num_rows != 0 ) {
-  echo "<hr><div class='section_head'>Delete old work history</div>";
+  echo "<hr><div class='section_head'>Delete existing work history</div>";
   echo "<table border='1' cellpadding='3'><th>Title</th><th>Employer</th><th>Start Date</th><th>End Date</th><th>Reason for leaving</th><th>Action</th>";
   while($row = mysqli_fetch_array($result))
     {
@@ -81,8 +81,8 @@ if ($result->num_rows != 0 ) {
     $reason_for_leaving = $row['reason_for_leaving'];
     $sql = "delete from work_history where wh_id = $wh_id";
     echo "<tr><form method='post' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' onsubmit='return confirm(".'"Are you sure you want to delete your role as a '.$title.' at '.$employer.'?"'.")'>";
-    echo "<td>$title</td>";
     echo "<td>$employer</td>";
+    echo "<td>$title</td>";
     echo "<td>$start_date</td>";
     echo "<td>$end_date</td>";
     echo "<td>$reason_for_leaving</td>";

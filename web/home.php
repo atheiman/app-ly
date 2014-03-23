@@ -16,6 +16,7 @@ Applicant Home
 <div id='content'>
 <div class='section_head'>Welcome, <?php echo $_SESSION['firstname']; ?></div>
 <a href='profile.php'>Update your profile</a><br>
+<a href='education.php'>Update your education history</a><br>
 <a href='work_history.php'>Update your work history</a><br>
 <a href='jobs.php'>Browse openings</a>
 <hr>

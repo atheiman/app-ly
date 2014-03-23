@@ -61,7 +61,7 @@ Confirm Password: <input id='confirm_pass_input' type='password' name='confirm_p
 First name: <input id='firstname_input' type='text' name='firstname' required><br>
 Last name: <input id='lastname_input' type='text' name='lastname' required><br>
 City: <input id='city_input' type='text' name='city' required><br>
-State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange='set_state();'><br>
+State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange="this.value=this.value.toUpperCase()"><br>
 Phone: <input id='phone' type='text' name='phone' required> <span class='gray small'>XXX-XXX-XXXX</span><br>
 <input type='submit'><br>
 </form>
@@ -85,11 +85,6 @@ echo "</script>";
 <hr>Already a member? <a href='login.php'>Login</a><br>
 </div>
 <script>
-function set_state() {
-  var x=document.getElementById("state_input");
-  x.value=x.value.toUpperCase();
-}
-
 function validateForm()
 {
   var email=document.forms['login_form']['email'].value;

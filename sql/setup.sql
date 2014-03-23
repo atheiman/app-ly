@@ -4,6 +4,7 @@ drop table comments;
 drop table applied;
 drop table jobs;
 drop table work_history;
+drop table education;
 drop table applicants;
 drop table users;
 
@@ -42,6 +43,18 @@ start_date date not null,
 end_date date,
 reason_for_leaving varchar(255),
 primary key (wh_id),
+foreign key (applicant_email) references applicants(applicant_email)
+);
+create table education
+(
+edu_id int not null auto_increment,
+applicant_email varchar(255) not null,
+school_name varchar(255) not null,
+school_state varchar(255),
+edu_status varchar(255) not null,
+grad_date date not null,
+major varchar(255) not null,
+primary key (edu_id),
 foreign key (applicant_email) references applicants(applicant_email)
 );
 create table applied
@@ -93,6 +106,14 @@ values
 ( 'squidward@easterisland.net' , 'Cashier' , 'Krusty Krab' , '1999-05-01' , null , null ) ,
 ( 'squidward@easterisland.net' , 'Band Director' , 'Bikini Bottom Municipal' , '2002-07-15' , '2005-02-15' , 'Lost the passion' ),
 ( 'sandy@dome.org' , 'Rancher' , 'Self-employed' , '1990-03-01' , '1999-04-15' , 'Moved to Bikini Bottom' )
+;
+
+insert into education ( applicant_email , school_name , school_state , edu_status , grad_date , major )
+values
+( 'spongebob@pineapple.com' , 'Miami University' , 'FL' , 'Bachelors in progress' , '2014-05-1' , 'Management Information Systems' ) ,
+( 'squidward@easterisland.net' , 'Ohio State University' , 'OH' , 'Completed Associates' , '2011-08-01' , 'Music' ) ,
+( 'sandy@dome.org' , 'University of Texas at Austin' , 'TX' , 'Completed Postgraduate' , '2010-03-01' , 'Ranching' ) ,
+( 'patrick@rock.com' , 'The Sleeping Institute' , null , 'Postgraduate in progress' , '2016-08-01' , 'Advanced Sleeping Techniques' )
 ;
 
 insert into applied ( applicant_email , job_id )

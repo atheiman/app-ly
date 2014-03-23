@@ -57,12 +57,12 @@ function test_input($data) {
 Update your profile
 </div>
 <div id='content'>
-<form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' onsubmit="return validateForm()" >
-Email: <input id='email_input' type='email' name='email' size='20' required <?php echo "value='$current_email'"; ?> onkeypress='enable_update()'><br>
+<form method='post' name='login_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' onsubmit="return validateForm()" onkeypress='enable_update()'>
+Email: <input id='email_input' type='email' name='email' size='20' required <?php echo "value='$current_email'"; ?>><br>
 First name: <input id='firstname_input' type='text' name='firstname' required <?php echo "value='$current_first'"; ?>><br>
 Last name: <input id='lastname_input' type='text' name='lastname' required <?php echo "value='$current_last'"; ?>><br>
 City: <input id='city_input' type='text' name='city' required <?php echo "value='$current_city'"; ?>><br>
-State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange='set_state();' <?php echo "value='$current_state'"; ?>><br>
+State: <input id='state_input' type='text' name='state' size='2' maxlength='2' required onchange="this.value=this.value.toUpperCase()" <?php echo "value='$current_state'"; ?>><br>
 Phone: <input id='phone' type='text' name='phone' required <?php echo "value='$current_phone'"; ?>><br>
 <input type='submit' id='update' value='Update' disabled><br>
 </form>
@@ -73,10 +73,6 @@ Phone: <input id='phone' type='text' name='phone' required <?php echo "value='$c
 <script>
 function enable_update() {
   document.getElementById('update').disabled = false;
-}
-function set_state() {
-  var x=document.getElementById("state_input");
-  x.value=x.value.toUpperCase();
 }
 
 function validateForm()
