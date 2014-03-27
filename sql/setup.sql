@@ -62,7 +62,8 @@ create table applied
 job_id int not null,
 applicant_email varchar(255) not null,
 foreign key (job_id) references jobs(job_id),
-foreign key (applicant_email) references applicants(applicant_email)
+foreign key (applicant_email) references applicants(applicant_email),
+constraint job_id_email primary key (job_id , applicant_email)
 );
 create table users
 (

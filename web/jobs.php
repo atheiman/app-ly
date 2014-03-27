@@ -24,7 +24,8 @@ include 'resources/db_connect.php';
 Jobs
 </div>
 <div id='content'>
-State: <select onchange='search_by_state()' id='state'><option value="Any">Any</option>
+<div class='section_head'>Current openings:</div>
+Filter by state: <select onchange='search_by_state()' id='state'><option value="Any">Any</option>
 <?php
 $sql = "select distinct state from jobs";
 $result = mysqli_query($con,$sql);
@@ -47,7 +48,7 @@ $result = mysqli_query($con,$sql);
 if ($result->num_rows == 0) {
   echo "Sorry, no jobs currently listed. Check back soon!";
 } else {
-  echo "<table border='1' cellpadding='3'><th>Title</th><th>City</th><th>State</th><th>Expires</th><th>Openings</th><th>Posted</th><th>More Info</th><th>Apply</th>";
+  echo "<table border='1' cellpadding='3'><th>Job ID</th><th>Title</th><th>City</th><th>State</th><th>Expires</th><th>Openings</th><th>Posted</th><th>More Info</th><th>Apply</th>";
   while($row = mysqli_fetch_array($result)) {
     $job_id = $row['job_id'];
     $title = $row['title'];
@@ -59,6 +60,7 @@ if ($result->num_rows == 0) {
     $openings = $row['openings'];
     $posted = $row['posted'];
     echo "<tr>";
+    echo "<td>$job_id</td>";
     echo "<td>$title</td>";
     echo "<td>$city</td>";
     echo "<td>$state</td>";
@@ -67,6 +69,35 @@ if ($result->num_rows == 0) {
     echo "<td>$posted</td>";
     echo "<td><button onclick='alert(".'"'.$description.'"'.")'>More Info</button></td>";
     echo "<td><button onclick='window.location.assign(".'"apply_to.php?job_id='.$job_id.'"'.")'>Apply</button></td>";
+    echo "</tr>";
+  }
+  echo "</table>";
+}
+mysqli_free_result($result);
+?>
+<hr>
+<?php
+$applicant_email = $_SESSION['email'];
+$sql = "select jobs.job_id , jobs.title , jobs.state , jobs.city , applied.applicant_email from jobs , applied
+where applied.job_id = jobs.job_id
+and applied.applicant_email = '$applicant_email'";
+$result = mysqli_query($con,$sql);
+if ($result->num_rows == 0) {
+  echo "<div class='section_head'>Click on 'More Info' to learn more about an opening. If it sounds interesting, click 'Apply'</div>";
+} else {
+  echo "<div class='section_head'>You are currently applied to:</div>
+  <table border='1' cellpadding='3'><th>Job ID</th><th>Title</th><th>City</th><th>State</th><th>Withdraw Application</th>";
+  while($row = mysqli_fetch_array($result)) {
+    $job_id = $row['job_id'];
+    $title = $row['title'];
+    $state = $row['state'];
+    $city = $row['city'];
+    echo "<tr>";
+    echo "<td>$job_id</td>";
+    echo "<td>$title</td>";
+    echo "<td>$city</td>";
+    echo "<td>$state</td>";
+    echo "<td><button onclick='window.location.assign(".'"unapply_from.php?job_id='.$job_id.'"'.")'>Withdraw Application</button></td>";
     echo "</tr>";
   }
   echo "</table>";
