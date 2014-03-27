@@ -3,12 +3,16 @@ session_start();
 if (!isset($_SESSION['email'])) {
   header('Location: login.php');
 }
+if (isset($_GET['state']) and $_GET['state'] == "Any") {
+  header('Location: jobs.php');
+}
 function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
 }
+include 'resources/db_connect.php';
 ?>
 <!doctype html>
 <html>
@@ -20,15 +24,22 @@ function test_input($data) {
 Jobs
 </div>
 <div id='content'>
-<a href='search_jobs.php'>Edit your search filters</a> or <a href='jobs.php'>remove them</a>.
+State: <select onchange='search_by_state()' id='state'><option value="Any">Any</option>
 <?php
-include 'resources/db_connect.php';
+$sql = "select distinct state from jobs";
+$result = mysqli_query($con,$sql);
+while ($row = mysqli_fetch_array($result)) {
+  $state=$row['state'];
+  echo "<option id='$state' value=".rawurlencode($state).">$state</option>";
+}
+mysqli_free_result($result);
+?>
+</select><br>
+<?php
 if (isset($_GET['state'])) {
   $state = $_GET['state'];
+  echo "<script>document.getElementById('$state').selected=true;</script>";
   $sql = "select * from jobs where state = '$state'";
-} elseif (isset($_GET['city'])) {
-  $city = $_GET['city'];
-  $sql = "select * from jobs where city = '$city'";
 } else {
   $sql = "select * from jobs";
 }
@@ -67,6 +78,10 @@ mysqli_free_result($result);
 </div>
 </body>
 <script>
-
+function search_by_state() {
+  var state_value = document.getElementById('state').value;
+  var url = "jobs.php?state="+state_value;
+  window.location.assign(url);
+}
 </script>
 </html>
