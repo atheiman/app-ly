@@ -37,7 +37,7 @@ function test_input($data)
 
 <!doctype html>
 <head>
-<title>App-ly</title>
+<title>App-ly - Applicant Login</title>
 <link rel="stylesheet" type="text/css" href="resources/style.css">
 </head>
 <body>
