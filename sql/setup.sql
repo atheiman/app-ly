@@ -79,6 +79,7 @@ create table comments
 user_email varchar(255) not null,
 applicant_email varchar(255) not null,
 comment text not null,
+ts timestamp,
 foreign key (user_email) references users(user_email),
 foreign key (applicant_email) references applicants(applicant_email)
 );

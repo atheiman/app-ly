@@ -57,7 +57,7 @@ mysqli_free_result($result);
 <div class='section_head'>Basic Information</div>
 <?php
 echo "Email: $applicant_email<br>City: $city<br>State: $state<br>Phone: $phone<br>";
-echo "<hr>";
+echo "<hr><br>";
 echo "<div class='section_head'>Work History</div>";
 $sql = "select w.title , w.employer , w.start_date , w.end_date , w.reason_for_leaving from work_history as w 
 where applicant_email = '$applicant_email'";
@@ -77,7 +77,7 @@ if ($result->num_rows == 0) {
   }
 }
 mysqli_free_result($result);
-echo "<hr>";
+echo "<hr><br>";
 echo "<div class='section_head'>Education</div>";
 $sql = "select e.school_name , e.school_state , e.edu_status , e.grad_date , e.major from education as e
 where applicant_email = '$applicant_email'";
@@ -89,13 +89,13 @@ if ($result->num_rows == 0) {
     $school_name = $row['school_name'];
     $school_state = $row['school_state'];
     $edu_status = $row['edu_status'];
-    $grad_date = $row['major'];
+    $grad_date = $row['grad_date'];
     $major = $row['major'];
     echo "School name: $school_name<br>School state: $school_state<br>Education status: $edu_status<br>Graduation date: $grad_date<br>Major: $major<br>";
   }
 }
 mysqli_free_result($result);
-echo "<hr>";
+echo "<hr><br>";
 echo "<div class='section_head'>Comments</div>";
 $sql = "select c.comment , u.user_email , u.firstname , u.lastname , u.title from comments as c , users as u
 where c.applicant_email = '$applicant_email'
@@ -110,7 +110,7 @@ if ($result->num_rows == 0) {
     $user_first = $row['firstname'];
     $user_last = $row['lastname'];
     $user_title = $row['title'];
-    echo "'$comment' ~ $user_first $user_last | $user_title | $user_email<br>";
+    echo "'$comment'<br>~ $user_first $user_last | $user_title | $user_email<br>";
   }
 }
 mysqli_free_result($result);
@@ -118,14 +118,14 @@ mysqli_free_result($result);
 <?php
 $form_action = htmlspecialchars($_SERVER['PHP_SELF']);
 ?>
+<br>
 <form method='post' name='comment_form' action='<?php echo $form_action;?>'>
-<input type='text' id='input_comment' name='comment' placeholder='Add a comment' size='150' required>
+<input type='text' id='input_comment' name='comment' placeholder='Add a comment' size='100' required>
 <input type='text' id='input_email' name='applicant_email' value='<?php echo "$applicant_email";?>' hidden>
 <input type='submit' value='Post'>
 </form>
-<hr>
+<br><hr><br>
 <a href='home.php'>Home</a><br>
-<a href='logout.php'>Logout</a><br>
 </div>
 </body>
 </html>

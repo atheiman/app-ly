@@ -70,7 +70,8 @@ if ($error == 'incorrect password') {
 echo "</script>";
 ?>
 </div>
-<hr>Not a member yet? Request access from another associate.
+<br><hr><br>
+Not a member yet? Request access from another associate.
 </div>
 </body>
 </html>
