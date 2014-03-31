@@ -75,7 +75,7 @@ if ($result->num_rows == 0) {
 }
 mysqli_free_result($result);
 ?>
-<hr>
+<br><hr>
 <?php
 $applicant_email = $_SESSION['email'];
 $sql = "select jobs.job_id , jobs.title , jobs.state , jobs.city , applied.applicant_email from jobs , applied
@@ -104,7 +104,7 @@ if ($result->num_rows == 0) {
 }
 mysqli_free_result($result);
 ?>
-<hr>
+<br><hr>
 <a href='home.php'>Home</a><br>
 </div>
 </body>

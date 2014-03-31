@@ -16,6 +16,7 @@ Applicant Home
 <div id='content'>
 <div class='section_head'>Welcome, <?php echo $_SESSION['firstname']; ?></div>
 <a href='browse_applicants.php'>Browse Applicants</a><br>
+<a href='jobs.php'>Jobs</a><br>
 <br><hr><br>
 <a href='logout.php'>Logout</a><br>
 </div>

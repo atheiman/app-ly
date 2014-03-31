@@ -19,7 +19,7 @@ Applicant Home
 <a href='education.php'>Update your education history</a><br>
 <a href='work_history.php'>Update your work history</a><br>
 <a href='jobs.php'>Browse openings</a>
-<hr>
+<br><br><hr>
 <a href='logout.php'>Logout</a><br>
 </div>
 </body>

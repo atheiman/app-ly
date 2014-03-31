@@ -68,7 +68,8 @@ Phone: <input id='phone' type='text' name='phone' required <?php echo "value='$c
 </form>
 <div id='msg'><?php echo $msg; ?>
 </div>
-<hr><a href='home.php'>Home</a><br>
+<br><hr>
+<a href='home.php'>Home</a><br>
 </div>
 <script>
 function enable_update() {

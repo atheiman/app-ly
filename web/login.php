@@ -69,6 +69,7 @@ if ($error == 'incorrect password') {
 echo "</script>";
 ?>
 </div>
+<br>
 <hr>Not a member yet? <a href='sign_up.php'>Sign up</a>
 </div>
 </body>

@@ -65,7 +65,7 @@ Education Status: <span class='red'>*</span> <select id='edu_status' name='edu_s
 Graduation Date: <span class='red'>*</span> <input type='date' id='grad_date' name='grad_date' required><br>
 Major: <span class='red'>*</span> <input type='text' id='major' name='major' size='30' required><br>
 <input type='submit' id='submit'><br>
-</form>
+</form><br>
 <?php
 // Show all education for this email and allow deleting. (maybe in future add updating)
 $sql = "select * from education where applicant_email = '".$_SESSION['email']."'";
@@ -98,7 +98,7 @@ if ( $result->num_rows != 0 ) {
 }
 mysqli_free_result($result);
 ?>
-<hr>
+<br><hr>
 <a href='home.php'>Home</a><br>
 </div>
 </body>

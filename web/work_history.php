@@ -61,7 +61,7 @@ Start Date: <span class='red'>*</span> <input type='date' id='start_date' name='
 End Date: <input type='date' id='end_date' name='end_date'><br>
 Reason for leaving: <input type='text' id='reason_for_leaving' name='reason_for_leaving' size='30'><br>
 <input type='submit' id='submit'><br>
-</form>
+</form><br>
 <?php
 // Show all work_history for this email and allow deleting. (maybe in future add updating)
 $sql = "select wh_id , applicant_email , title , employer , start_date , end_date , reason_for_leaving from work_history where applicant_email = '".$_SESSION['email']."'";
@@ -95,7 +95,7 @@ if ($result->num_rows != 0 ) {
 
 mysqli_free_result($result);
 ?>
-<hr>
+<br><hr>
 <a href='home.php'>Home</a><br>
 </div>
 </body>
